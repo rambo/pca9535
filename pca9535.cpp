@@ -8,6 +8,8 @@ pca9535::pca9535()
 
 /**
  * Sets the mode bits for given port (0/1), a low bit means output, default is all inputs (0xff)
+ *
+ * See also pca9535::pinMode()
  */
 boolean pca9535::set_port_mode(byte port, byte mode)
 {
@@ -32,6 +34,8 @@ boolean pca9535::read_data()
 
 /**
  * Writes the output bits
+ *
+ * See also pca9535::digitalWrite()
  */
 boolean pca9535::write_data()
 {
@@ -96,6 +100,25 @@ boolean pca9535::pinMode(byte pin, byte mode)
     }
     return this->read_modify_write(0x6 + port, (byte)~_BV(pin % 8), value);
 }
+
+/**
+ * Set input inversion on single pin, Arduino style
+ */
+boolean pca9535::pinInvert(byte pin, boolean invert)
+{
+    byte port = 0;
+    if (pin > 7)
+    {
+        port = 1;
+    }
+    byte value = 0x0; // default is non-inverting input
+    if (invert)
+    {
+        value = (byte)_BV(pin % 8);
+    }
+    return this->read_modify_write(0x4 + port, (byte)~_BV(pin % 8), value);
+}
+
 
 /**
  * Arduino style pin value setting. 0-7 in portA, 8-15 in portB
