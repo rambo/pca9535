@@ -20,7 +20,7 @@ void setup()
 void loop()
 {
     // Dump device registers and wait 15sek
-    driver.dump_registers(0x0, 0x07);
+    expander.dump_registers(0x0, 0x07);
 
     delay(15000);
 }
