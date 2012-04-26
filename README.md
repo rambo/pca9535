@@ -13,10 +13,10 @@ Clone this repo to your arduino libraries folder, then clone the following repos
 
 Draw a pull-up & LED resistor "wing" PCB, something like:
 
-        |
-        R=100k
-        |
-    IO--o-R=150--->pin_header
+             ^ 5V
+             |
+             R=100k
+             |
+    IO_pin<--o-R=150--->pin_header (LED or switch)
 
-This way the each I/O pin can be used with the pull-up to sense a switch position and driving LEDs by sinking
-current in output mode is not affected.
+This way the each I/O pin can be used with the pull-up to sense a switch position (switch would be closing to ground) and driving LEDs by sinking current in output mode is not affected.
