@@ -11,13 +11,14 @@ class pca9535 : public i2c_device
         pca9535(); // We need this so we can set default address
         boolean set_port_mode(byte port, byte mode); // Sets the input/ouput bits on portA/portB
         boolean set_port_invert(byte port, byte mode); // Sets the input inversion bits on portA/portB
-        boolean sync(); // Shortcut to read_input() and write_output()
-        boolean read_input(); // Updates the local input data from device 
-        boolean write_output(); // Updates the local output data to device
+        boolean sync(); // Shortcut to write_data() and read_data()
+        boolean read_data(); // Updates the local data from device 
+        boolean write_data(); // Updates the local data to device
+        boolean port_read_modify_write(byte port, byte mask, byte value); // This bypasses the read_data method to do a direct RMW
+        boolean pinMode(byte pin, byte mode);
+        boolean digitalWrite(byte pin, byte mode);
 
-        // TODO: We might be able to live with only one array for both i/o but then the sync method is useless (or at least it needs to write first and read then)
-        byte input[2]; // registers 0 and 1
-        byte output[2]; // registers 2 and 3
+        byte data[2]; // registers 0 and 1
 };
 
 

@@ -25,27 +25,98 @@ boolean pca9535::set_port_invert(byte port, byte mode)
 /**
  * Reads the input bits
  */
-boolean pca9535::read_input()
+boolean pca9535::read_data()
 {
-    return this->read_many(0x0, 2, this->input);
+    return this->read_many(0x0, 2, this->data);
 }
 
 /**
  * Writes the output bits
  */
-boolean pca9535::write_output()
+boolean pca9535::write_data()
 {
-    return this->write_many(0x2, 2, this->output);
+    return this->write_many(0x2, 2, this->data);
 }
 
 /**
- * calls read_input and write_output, returns true if both succeed false if one fails
+ * calls write_output and read_input, returns true if both succeed false if one fails
  */
 boolean pca9535::sync()
 {
     boolean ret;
-    ret = this->read_input();
-    ret = ret & this->write_output();
+    ret = this->write_data();
+    ret = ret & this->read_data();
     return ret;
+}
+
+/**
+ * Do a Read,Modify,Write on the given port (we cannot use the i2c_device method since the write reg is different from the read one)
+ */
+boolean pca9535::port_read_modify_write(byte port, byte mask, byte value)
+{
+    byte tmp;
+    if (!this->read_many(0x0 + port, 1, &tmp))
+    {
+        return false;
+    }
+    tmp = (tmp & mask) | value;
+    if (!this->write_many(0x2 + port, 1, &tmp))
+    {
+        return false;
+    }
+    // Upodate the local copy of the register too
+    this->data[port] = tmp;
+    return true;
+}
+
+/**
+ * Reminders about constants
+HIGH=B1
+LOW=B0
+INPUT=B0
+OUTPUT=B1
+(byte)_BV(3)=B1000
+(byte)~_BV(3)=B11110111
+*/
+
+/**
+ * Arduino style pinmode setting. 0-7 in portA, 8-15 in portB
+ */
+boolean pca9535::pinMode(byte pin, byte mode)
+{
+    byte port = 0;
+    if (pin > 7)
+    {
+        port = 1;
+    }
+    byte value = 0x0; // output is bit set to low
+    if (mode != OUTPUT)
+    {
+        value = (byte)_BV(pin % 8);
+    }
+    return this->read_modify_write(0x6 + port, (byte)~_BV(pin % 8), value);
+}
+
+/**
+ * Arduino style pin value setting. 0-7 in portA, 8-15 in portB
+ */
+boolean pca9535::digitalWrite(byte pin, byte state)
+{
+    byte port = 0;
+    if (pin > 7)
+    {
+        port = 1;
+    }
+    if (!this->read_data())
+    {
+        return false;
+    }
+    byte value = 0x0;
+    if (state == HIGH)
+    {
+        value = (byte)_BV(pin % 8);
+    }
+    this->data[port] = (this->data[port] & (byte)~_BV(pin % 8)) | value;
+    return this->write_data();
 }
 
