@@ -107,16 +107,11 @@ boolean pca9535::digitalWrite(byte pin, byte state)
     {
         port = 1;
     }
-    if (!this->read_data())
-    {
-        return false;
-    }
     byte value = 0x0;
     if (state == HIGH)
     {
         value = (byte)_BV(pin % 8);
     }
-    this->data[port] = (this->data[port] & (byte)~_BV(pin % 8)) | value;
-    return this->write_data();
+    return this->port_read_modify_write(port, (byte)~_BV(pin % 8), value);
 }
 
