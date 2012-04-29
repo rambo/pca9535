@@ -110,12 +110,8 @@
 <wire x1="28.301" y1="0" x2="28.301" y2="23.165" width="0" layer="20"/>
 <wire x1="28.301" y1="23.165" x2="0" y2="23.165" width="0" layer="20"/>
 <wire x1="0" y1="23.165" x2="0" y2="0" width="0" layer="20"/>
-<text x="25.908" y="3.302" size="0.8128" layer="25">A7</text>
-<text x="1.143" y="14.478" size="0.8128" layer="25">D    C</text>
-<text x="1.143" y="3.048" size="0.8128" layer="25">G   5V  INT</text>
-<text x="27.559" y="14.351" size="0.8128" layer="26" rot="MR0">B0   B1    B2   B3    B4    B5    B6    B7  ADR0 SCL SDA</text>
-<text x="26.162" y="14.097" size="0.8128" layer="25">B0</text>
-<text x="27.178" y="3.175" size="0.8128" layer="26" rot="MR0">A7   A6   A5    A4   A3    A2    A1    A0   INT   5V   GND</text>
+<text x="27.305" y="16.637" size="0.508" layer="26" font="vector" rot="MR0">B0   B1    B2   B3    B4    B5    B6    B7  ADR0 SCL SDA</text>
+<text x="27.432" y="5.969" size="0.508" layer="26" font="vector" rot="MR0">A7   A6   A5    A4   A3    A2    A1    A0   INT   5V   GND</text>
 </plain>
 <libraries>
 <library name="SparkFun">
@@ -412,8 +408,10 @@ design rules under a new name.</description>
 <elements>
 <element name="PA_OUT" library="SparkFun" package="1X11" value="M11PTH" x="1.397" y="1.397" smashed="yes"/>
 <element name="PB_OUT" library="SparkFun" package="1X11" value="M11PTH" x="26.797" y="21.717" smashed="yes" rot="R180"/>
-<element name="PA_IN" library="SparkFun" package="1X11" value="M11PTH" x="1.397" y="4.191"/>
-<element name="PB_IN" library="SparkFun" package="1X11" value="M11PTH" x="1.397" y="18.923"/>
+<element name="PA_IN" library="SparkFun" package="1X11" value="M11PTH" x="1.397" y="4.191" smashed="yes"/>
+<element name="PB_IN" library="SparkFun" package="1X11" value="M11PTH" x="1.397" y="18.923" smashed="yes">
+<attribute name="NAME" x="0.0508" y="20.7518" size="1.27" layer="25" ratio="10"/>
+</element>
 </elements>
 <signals>
 <signal name="INT-">
