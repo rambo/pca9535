@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.1">
+<eagle version="6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8413,7 +8413,7 @@ type RDH, grid 15 mm</description>
 <part name="J1" library="resistor" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="J2" library="resistor" deviceset="R-EU_" device="R0603" value="0R"/>
 <part name="J3" library="resistor" deviceset="R-EU_" device="R0603" value="0R"/>
-<part name="PU2" library="resistor-dil" deviceset="4R-N" device="CAY16" value="4.7k"/>
+<part name="PU2" library="resistor-dil" deviceset="4R-N" device="CAY16" value="I2C 4.7k"/>
 </parts>
 <sheets>
 <sheet>
