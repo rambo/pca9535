@@ -1463,9 +1463,9 @@ Source: RS Component / Phycomp</description>
 <variantdefs>
 </variantdefs>
 <classes>
-<class number="0" name="default" width="0" drill="0">
+<class number="0" name="default" width="0.2032" drill="0">
 </class>
-<class number="1" name="power" width="0.1524" drill="0">
+<class number="1" name="power" width="0.254" drill="0">
 </class>
 </classes>
 <parts>
