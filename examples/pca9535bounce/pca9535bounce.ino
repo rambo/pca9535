@@ -54,6 +54,8 @@ void loop()
         last_millis = millis();
     }
     //expander.read_data();
+    // This needs to be set before each update if it is to be used
+    bouncer.rebounce(1000);
     if (bouncer.update())
     {
         Serial.print("Pin state changed to ");
