@@ -51,6 +51,9 @@ void setup()
     Serial.println("=== Done ===");
 
 
+    /**
+     * NOTE: remember to configure your outputs before enabling the interrupt handler to be sure not to have floating input pins
+     */
     // Use INT_PIN as the interrup pin, set it as input and enable the pull-up (since the int-signal is open-collector to ground)
     pinMode(INT_PIN, INPUT);
     digitalWrite(INT_PIN, HIGH);
