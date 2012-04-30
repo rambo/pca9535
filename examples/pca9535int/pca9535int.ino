@@ -36,7 +36,6 @@ void expander_int_received(void* userData)
 void setup()
 {
     Serial.begin(115200);
-
     // Initialize I2C library manually
     I2c.begin();
     I2c.timeOut(500);

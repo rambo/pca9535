@@ -138,3 +138,17 @@ boolean pca9535::digitalWrite(byte pin, byte state)
     return this->port_read_modify_write(port, (byte)~_BV(pin % 8), value);
 }
 
+/**
+ * Arduino style pin value setting. 0-7 in portA, 8-15 in portB
+ */
+boolean pca9535::digitalRead(byte pin)
+{
+    this->read_data();
+    byte port = 0;
+    if (pin > 7)
+    {
+        port = 1;
+    }
+    return this->data[port] & (byte)_BV(pin % 8);
+}
+

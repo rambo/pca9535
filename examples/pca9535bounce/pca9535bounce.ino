@@ -12,7 +12,6 @@
 #include <I2C.h> // For some weird reason including this in the relevant .h file does not work
 #include <i2c_device.h> // For some weird reason including this in the relevant .h file does not work
 #define PCA9535_ENABLE_BOUNCE
-#include <Bounce.h> //  For some weird reason including this in the relevant .h file does not work
 #include <pca9535.h>
 
 // Container for the device (the default constructor will take care of the device address when using the board found in this repo)
@@ -40,7 +39,7 @@ void setup()
     expander.dump_registers(0x0, 0x07);
     Serial.println("=== Done ===");
 
-    bouncer.init(&expander, 7, 50);
+    bouncer.begin(&expander, 7, 50);
 
 
     Serial.println("Booted");
@@ -54,9 +53,12 @@ void loop()
         Serial.println("Still alive");
         last_millis = millis();
     }
-    expander.read_data();
-    
-    // TODO: The debouncer
+    //expander.read_data();
+    if (bouncer.update())
+    {
+        Serial.print("Pin state changed to ");
+        Serial.println(bouncer.read(), DEC);
+    }
 }
 
 

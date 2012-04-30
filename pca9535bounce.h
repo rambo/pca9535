@@ -21,14 +21,41 @@
 #ifndef pca9535bounce_h
 #define pca9535bounce_h
 #include <Arduino.h>
-#include <Bounce.h>
+#include "pca9535.h"
 
-class pca9535bounce : public Bounce
+class pca9535bounce
 {
     public:
-        Bounce(uint8_t pin, unsigned long interval_millis ); 
-        void init(pca9535 *expander, uint8_t pin, unsigned long interval_millis );
+        void begin(pca9535 *expander, uint8_t pin, unsigned long interval_millis );
+
+        void interval(unsigned long interval_millis); 
+          // Updates the pin
+          // Returns 1 if the state changed
+          // Returns 0 if the state did not change
+        int update(); 
+          // Forces the pin to signal a change (through update()) in X milliseconds 
+          // even if the state does not actually change
+          // Example: press and hold a button and have it repeat every X milliseconds
+        void rebounce(unsigned long interval); 
+          // Returns the updated pin state
+        int read();
+          // Sets the stored pin state
+        void write(int new_state);
+          // Returns the number of milliseconds the pin has been in the current state
+        unsigned long duration();
+        // The risingEdge method is true for one scan after the de-bounced input goes from off-to-on.
+          bool risingEdge();
+        // The fallingEdge  method it true for one scan after the de-bounced input goes from on-to-off. 
+          bool fallingEdge();
+  
+    protected:
+        int debounce();
+        unsigned long  previous_millis, interval_millis, rebounce_millis;
+        uint8_t state;
+        uint8_t pin;
+        uint8_t stateChanged;
         pca9535* device;
+
 };
 
 #endif

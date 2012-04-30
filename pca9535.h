@@ -4,7 +4,6 @@
 #include <Arduino.h> 
 #include <i2c_device.h>
 
-// Stub extension for now
 class pca9535 : public i2c_device
 {
     public:
@@ -15,12 +14,17 @@ class pca9535 : public i2c_device
         boolean read_data(); // Updates the local data from device 
         boolean write_data(); // Updates the local data to device
         boolean port_read_modify_write(byte port, byte mask, byte value); // This bypasses the read_data method to do a direct RMW
-        boolean pinMode(byte pin, byte mode); // Arduino style pin mode setter
-        boolean digitalWrite(byte pin, byte mode); // Arduino style pin write
         boolean pinInvert(byte pin, boolean invert); // Arduino style pin input inversion setter
+        boolean pinMode(byte pin, byte mode); // Arduino style pin mode setter
+        boolean digitalWrite(byte pin, byte state); // Arduino style pin write
+        boolean digitalRead(byte pin); // Arduino style pin read
 
         byte data[2]; // registers 0 and 1
 };
+
+#ifdef PCA9535_ENABLE_BOUNCE
+#include "pca9535bounce.h"
+#endif
 
 
 
