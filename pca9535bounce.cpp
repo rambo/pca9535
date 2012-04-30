@@ -1,6 +1,3 @@
-
-// Please read Bounce.h for information about the liscence and authors
-
 #include <Arduino.h>
 #include "pca9535bounce.h"
 

@@ -1,3 +1,8 @@
+/**
+ * Based very heavily on http://www.arduino.cc/playground/Code/Bounce, in fact I would
+ * have just extended that class but the constructor used prevented me from doing that 
+ * (I couldn't figure out how to override it), so I had to copy everything.
+ */
 
 /*
  *      This program is free software; you can redistribute it and/or modify
