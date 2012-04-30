@@ -6,6 +6,31 @@ pca9535::pca9535()
     device_address = 0x27; // Default to the address on the breakout board with no address pins pulled down (the board has pull-ups for them)
 }
 
+
+void pca9535::begin(byte board_num, boolean wire_begin)
+{
+    if (wire_begin)
+    {
+        I2c.begin();
+    }
+
+    // 0x27 is default address on the breakout board with no address pins pulled down (board has pull-ups)
+    device_address = 0x27 ^ board_num; // XOR by board number (which address pins are pulled down [remember the pulled down bit is set HIGH])
+
+}
+// Funky way to handle default arguments
+void pca9535::begin(byte board_addr)
+{
+    pca9535::begin(board_addr, true);
+}
+
+void pca9535::begin()
+{
+    pca9535::begin(0x0, true);
+}
+
+
+
 /**
  * Sets the mode bits for given port (0/1), a low bit means output, default is all inputs (0xff)
  *

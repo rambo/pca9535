@@ -29,6 +29,9 @@ void setup()
 
     // Scan the bus (do this if you can't find your device address)
     //I2c.scan();
+
+    // While strictly not neccessary for the 0th board it's good reminder    
+    expander.begin(0x0, false);
     
     // Set all pins as outputs to avoid floating pins
     expander.set_port_mode(0, 0x0);

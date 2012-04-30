@@ -31,6 +31,9 @@
 class pca9535bounce
 {
     public:
+        /**
+         * Initializes the bouncer, needs pointer to the pca9535 instance and otherwise works like the standard library constructor
+         */
         void begin(pca9535 *expander, uint8_t pin, unsigned long interval_millis );
 
         void interval(unsigned long interval_millis); 

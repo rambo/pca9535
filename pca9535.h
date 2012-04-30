@@ -8,6 +8,13 @@ class pca9535 : public i2c_device
 {
     public:
         pca9535(); // We need this so we can set default address
+
+        // Initialize the object and chip        
+        void begin(byte board_num, boolean wire_begin);
+        // A funky way to handle optional arguments
+        void begin(byte board_num);
+        void begin();
+
         boolean set_port_mode(byte port, byte mode); // Sets the input/ouput bits on portA/portB
         boolean set_port_invert(byte port, byte mode); // Sets the input inversion bits on portA/portB
         boolean sync(); // Shortcut to write_data() and read_data()
