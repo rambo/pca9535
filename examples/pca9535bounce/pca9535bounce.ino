@@ -12,6 +12,7 @@
 #include <I2C.h> // For some weird reason including this in the relevant .h file does not work
 #include <i2c_device.h> // For some weird reason including this in the relevant .h file does not work
 #define PCA9535_ENABLE_BOUNCE
+#define PCA9535_BOUNCE_OPTIMIZEDREADS // Do not use the naive methods that will always read the device, handy when you have multiple pins to debounce, OTOH you must remember to call the read_data() method yourself
 #include <pca9535.h>
 
 // Container for the device (the default constructor will take care of the device address when using the board found in this repo)
@@ -53,7 +54,10 @@ void loop()
         Serial.println("Still alive");
         last_millis = millis();
     }
-    //expander.read_data();
+#ifdef PCA9535_BOUNCE_OPTIMIZEDREADS
+    // Read only once
+    expander.read_data();
+#endif
     // This needs to be set before each update if it is to be used
     bouncer.rebounce(1000);
     if (bouncer.update())

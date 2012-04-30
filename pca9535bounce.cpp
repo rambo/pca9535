@@ -68,8 +68,21 @@ int pca9535bounce::read()
 
 // Protected: debounces the pin
 int pca9535bounce::debounce() {
-	
+#ifndef PCA9535_BOUNCE_OPTIMIZEDREADS
 	uint8_t newState = this->device->digitalRead(pin);
+#else
+    uint8_t newState
+    byte port = 0;
+    if (pin > 7)
+    {
+        port = 1;
+    }
+    if (this->device->data[port] & (byte)_BV(pin % 8))
+    {
+        newState = 1;
+    }
+#endif
+
 	if (state != newState ) {
   		if (millis() - previous_millis >= interval_millis) {
   			previous_millis = millis();
