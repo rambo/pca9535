@@ -149,6 +149,10 @@ boolean pca9535::digitalRead(byte pin)
     {
         port = 1;
     }
-    return this->data[port] & (byte)_BV(pin % 8);
+    if (this->data[port] & (byte)_BV(pin % 8))
+    {
+        return true;
+    }
+    return false;
 }
 
