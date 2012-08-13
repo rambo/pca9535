@@ -39,14 +39,14 @@ void setup()
     // And portA bit 7 as input
     expander.pinMode(7, INPUT);
 
-    Serial.println("=== Dump ===");
+    Serial.println(F("=== Dump ==="));
     expander.dump_registers(0x0, 0x07);
-    Serial.println("=== Done ===");
+    Serial.println(F("=== Done ==="));
 
     bouncer.begin(&expander, 7, 50);
 
 
-    Serial.println("Booted");
+    Serial.println(F("Booted"));
 }
 
 unsigned long last_millis;
@@ -54,7 +54,7 @@ void loop()
 {
     if ((millis() - last_millis) > 1000)
     {
-        Serial.println("Still alive");
+        Serial.println(F("Still alive"));
         last_millis = millis();
     }
 #ifdef PCA9535_BOUNCE_OPTIMIZEDREADS
@@ -65,7 +65,7 @@ void loop()
     bouncer.rebounce(1000);
     if (bouncer.update())
     {
-        Serial.print("Pin state changed to ");
+        Serial.print(F("Pin state changed to "));
         Serial.println(bouncer.read(), DEC);
     }
 }

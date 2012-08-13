@@ -10,13 +10,13 @@ void setup()
 {
     Serial.begin(115200);
     /*
-    Serial.print("INPUT=B");
+    Serial.print(F("INPUT=B"));
     Serial.println(INPUT, BIN);
-    Serial.print("OUTPUT=B");
+    Serial.print(F("OUTPUT=B"));
     Serial.println(OUTPUT, BIN);
-    Serial.print("(byte)_BV(3)=B");
+    Serial.print(F("(byte)_BV(3)=B"));
     Serial.println((byte)_BV(3), BIN);
-    Serial.print("(byte)~_BV(3)=B");
+    Serial.print(F("(byte)~_BV(3)=B"));
     Serial.println((byte)~_BV(3), BIN);
     */
 
@@ -37,15 +37,15 @@ void setup()
     expander.data[1] = B01010101;
     expander.write_data();
 
-    Serial.println("Booted");
+    Serial.println(F("Booted"));
 }
 
 void loop()
 {
     // Dump device registers and wait 15sek
-    Serial.println("=== Dump ===");
+    Serial.println(F("=== Dump ==="));
     expander.dump_registers(0x0, 0x07);
-    Serial.println("=== Done ===");
+    Serial.println(F("=== Done ==="));
     for (byte i = 0; i < 16; i++)
     {
         expander.digitalWrite(i, HIGH);
